@@ -1,2 +1,2 @@
-# DirectRNA
-This repository includes the scripts and files assiciated with the directRNA-based ISS project
+# Hower Project
+This repository includes the scripts and files assiciated with the Hower ISS project
