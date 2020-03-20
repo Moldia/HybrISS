@@ -1,0 +1,11 @@
+here are the scripts for assessing the average intensity, the maximum intensity and the snr. attached are five scripts.
+Starting out go to the definingThresholds.m and find the settings that generate the best thresholds. 
+These values can then be imported into intensityMeasurmentOverRCP.m. This will generate csv files with the same names as the tif images.
+
+The other scripts can be used to calculate the average intensity, maximum intensity and the snr. you might have to do some testing so that it fits you file structure and naming convention. this is the best i could manage in the time that i had to put it together. i did not want to spend too much time on it but at this time, at least it is automatic when the thresholds have been defined.  
+------
+1. 	First run the thresholding script and import threshold vals to intensitymeasurementoverRCP.m and get .csv files
+
+2. 	maxintensityPlot_correct.m : uses csv generated from intensitymeasurementoverRCP.m as input
+	averageintensity_correct.m: same 
+	SNRcalculator_correct.m: same

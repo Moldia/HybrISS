@@ -1,0 +1,43 @@
+function [SIG1]=Find_Spots(Itop,Threshold,num)
+Itop=imread([folder,PREFIX,num2str(1),'.tif']);
+% %% reference segmentation
+I = double(Itop)/65535;
+I=Itop;
+I = imtophat(I, strel('disk', 2));
+
+ok='FALSE'
+
+while ok=='FALSE'
+    Ibw = im2bw(I, Threshold); %This value needs to be customized
+figure;
+subplot(1,2,1);
+imshow(Itop*100);
+subplot(1,2,2);
+imshow(Ibw*100);
+linkaxes();
+
+end
+
+
+Iws = watershed(-I);
+Iws = double(Iws) .* double(Ibw);
+Ibw = logical(Iws);
+Ibw = bwareaopen(Ibw, 3);
+image(Iws);
+Ibw = logical(Iws);
+
+UNIQUES = bwconncomp(Iws);
+U2=labelmatrix(UNIQUES);
+%U2=uint16(U2);
+pr=regionprops(U2);
+XY=fliplr(vertcat(regionprops(U2).Centroid));
+
+ [blobs] = unique(U2);
+ blobs = blobs(blobs~=0);
+ size(blobs)
+
+ SIG1=[blobs,XY];
+ GROUP=num*ones(size(SIG1,1),1);
+ SIG1=[SIG1,GROUP];
+
+end
