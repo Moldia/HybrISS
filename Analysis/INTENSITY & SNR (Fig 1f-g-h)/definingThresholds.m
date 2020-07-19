@@ -1,9 +1,9 @@
 close all
-image_location = 'L:\4plex_assay\200313_r1c1\200313_cDNA_01_tr2_r1c1_roi1_001\Preprocess\Stitched2DTiles_MIST_Ref1\';
-image = '200313_cDNA_01_tr2_r1c1_roi1_001_stitched-4.tif';
+image_location = 'O:\dRNA project\CYCLE1_2\Preprocess\Stitched2DTiles_MIST_Ref1/\';
+image = '200414 drna roi 20x_MIPPED_sample1_tr1_stitched-3.tif';
 image = [image_location, image];
 I = imread(image);
-threshold = 0.0038;
+threshold = 0.04;
 maxdist_between_spots = 14;
 filename = [strtok(image, '.'), '.csv'];
 % binary image

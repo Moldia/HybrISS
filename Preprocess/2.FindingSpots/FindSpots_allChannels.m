@@ -168,7 +168,6 @@ XY=fliplr(vertcat(regionprops(U2).Centroid));
  
  
  
- 
  ALL=[SIG0(:,1:4);SIG1(:,1:4);SIG2(:,1:4);SIG3(:,1:4)];
  writematrix(ALL,['O:\dRNA project\mipped C1 full scan 20x\',PREFIX,'.csv']);
  

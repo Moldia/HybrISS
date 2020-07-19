@@ -1,31 +1,34 @@
-              % CML, 2020
 close all
 clear
 %% user input
-image_location = 'L:\4plex_assay\200313_r1c1\HalfCoronal/';
-image_prefix = 'TestMipping';
+image_location = 'L:\4plex_assay\200313_r1c1\rois_1st/';
+image_prefix = 'dRNA';
 % regions can denote parts of the brain for instance
 region = {
-    'ependymal'
-    'hippo'
-    'cortex'};
+    '200313_dRNA_02_tr3_r1c1_ROI1001_stitched-'
+    'cDNA_02_tr3_r1c1_ROI2_001_stitched-'
+    'cDNA_02_tr3_r1c1_ROI3_001_stitched-'
+    'dRNA_02_tr4_r1c1_ROI2_001_stitched-'
+    'dRNA_02_tr4_r1c1_ROI3_001_stitched-'
+    '200313_dRNA_02_tr4_r1c1_ROI1001_stitched-'};
 bases = {
     'b1'};
-number_of_channels = 4;
+number_of_channels = 5;
 num_bases = 1; %% change as necessary
 num_scence = (1:2); % the number of slides
 image_suffix = '.csv';
 f_channel = { 
-    'AF488'
-    'AF750'
-    'Cy5'
-    'Cy3'
+'AF750'    
+'Cy5'
+'Cy3'
+'AF488'
     };
 
 %% fixing leica zero indexing
 number_of_channels = number_of_channels-1;
 %%
-for ch = 0:number_of_channels
+VEC=[];
+for ch = 1:number_of_channels
     for b = 1:length(bases)
        base = bases{b};
         Mean = [];
@@ -35,7 +38,7 @@ for ch = 0:number_of_channels
             for r = 1:length(region)
                 region_img = region{r};
                 
-                csv_file = [image_location, 's', num2str(scence), '_',num2str(ch), image_suffix];
+                csv_file = [image_location,region_img,num2str(ch), image_suffix];
                 
                 tabledata = readtable(csv_file);
                 arraydata = table2array(tabledata, 'grubbs');
@@ -54,28 +57,18 @@ for ch = 0:number_of_channels
                 SNR = signalmean/backgroundmean;
                 
                 
-                if s == 1 
+                if r == 1 
                     SNR_12 = SNR;
-                else
+                end
+                if r==4
                     SNR_34 = SNR;
                 end
             end
         end
     end
-    subplot(2,2, ch+1);
-    plot(SNR_12, 'MarkerSize',10,'MarkerEdgeColor','red','MarkerFaceColor','red')
-     sgt = sgtitle(['Signal to Noise Ratio (SNR) Cycle1'  ])
-      sgt.FontSize = 30;
-    hold on
-    plot(SNR_34, 'MarkerSize',10,'MarkerEdgeColor','red','MarkerFaceColor','red')
-    title(strcat(' ', '   ', f_channel(ch+1)));
-    legend direct cdna 
-    xlabel ('Pixel number')
-    ylabel ('Signal to noise ratio')
-    ax = gca;
-    ax.FontSize = 12;
-    xlim([1 21])
-    ylim([1 9])
+    VEC=[VEC;max(SNR_12),max(SNR_34)]
+   
 end
 
-
+figure
+bar(categorical(f_channel),VEC)

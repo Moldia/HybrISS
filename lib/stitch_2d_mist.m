@@ -14,7 +14,6 @@ mkdir(outdir);
 s_order = 1:numel(files);
 if ref_file
     s_order = [ref_file, setdiff(s_order, ref_file)];
-    
     % transformation from tile alignment
     load(fullfile(outdir_top, 'Aligned2DTiles', 'transformation.mat'));
     TForm = cat(2, TForm{:});

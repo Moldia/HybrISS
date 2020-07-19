@@ -10,15 +10,26 @@ clear
 %% user input
 
 number_of_channels = 5;
-image_location = 'L:\4plex_assay\200313_r1c1\HalfCoronal\';
+image_location = 'O:\dRNA project\CYCLE 2\Preprocess\Stitched2DTiles_MIST_Ref1\';
 image_prefix = ''; 
 % regions can denote different slides for instance 
 region = {
-    '200313_cDNA_02_tr3_rd1cy1001_stitched-'};
+    'tr1-1_stitched-'
+    'tr1-2_stitched-'
+    'tr1-3_stitched-'
+    'tr2-1_stitched-'
+    'tr2-2_stitched-'
+    'tr2-3_stitched-'
+    'tr3-1_stitched-'
+    'tr3-2_stitched-'
+    'tr3-3_stitched-'
+    'tr4-1_stitched-'
+    'tr4-2_stitched-'
+    'tr4-3_stitched-'};
 bases = {
     'b1'};
-threshold_all_channels = [0.005,0.002,.002,.0038];
-num_bases = 2;
+threshold_all_channels = [0.01,0.02,.05,.03];
+num_bases = 1;
 num_scence = (1); % the number of slides
 image_suffix = '.tif';
 number_of_channels = number_of_channels-1;
